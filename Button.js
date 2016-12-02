@@ -27,11 +27,11 @@ export default class Button extends Component{
     }
     return (
       <View style={{justifyContent:'center',flexDirection:row}}>
-        {this.props.iconLeft  ? <Icon size={24} name="rocket"/> : null}
+        {this.props.iconLeft  ? (this.props.icon ? <Icon name={this.props.icon} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null) : null}
         <Text style={this.props.textStyle ? this.props.textStyle : styles.defaultTextStyle}>
           {this.props.children}
         </Text>
-        {this.props.iconRight  ? <Icon size={24} name="rocket"/> : null}
+        {this.props.iconRight  ? (this.props.icon ? <Icon name={this.props.icon} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null) : null}
       </View>
     );
   }
@@ -111,6 +111,11 @@ const styles = StyleSheet.create({
     fontSize : 16,
     textAlign : 'center',
     padding : 8
+  },
+  iconStyle:{
+    alignSelf:'center',
+    color:'#fff',
+    size : 24
   },
   raised: {
     ...Platform.select({
