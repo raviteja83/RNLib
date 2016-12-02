@@ -9,8 +9,13 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Foundation from 'react-native-vector-icons/Foundation';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
+import Zocial from 'react-native-vector-icons/Zocial';
 
 export default class Button extends Component{
   constructor(props){
@@ -25,13 +30,39 @@ export default class Button extends Component{
         </View>
       );
     }
+    var Icon;
+    switch (this.props.iconType) {
+      case 'Ionicons':
+      Icon = Ionicons;
+      break;
+      case 'Entypo':
+      Icon = Entypo;
+      break;
+      case 'FontAwesome':
+      Icon = FontAwesome;
+      break;
+      case 'Foundation':
+      Icon = Foundation;
+      break;
+      case 'MaterialIcons':
+      Icon = MaterialIcons;
+      break;
+      case 'Octicons':
+      Icon = Octicons;
+      break;
+      case 'Zocial':
+      Icon = Zocial;
+      break;
+      default:
+      Icon = Ionicons;
+    }
     return (
-      <View style={{justifyContent:'center',flexDirection:row}}>
-        {this.props.iconLeft  ? (this.props.icon ? <Icon name={this.props.icon} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null) : null}
+      <View style={{justifyContent:'center',flexDirection:'row'}}>
+        {this.props.iconLeft && Icon ? <Icon size={24} name={this.props.iconLeft} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null}
         <Text style={this.props.textStyle ? this.props.textStyle : styles.defaultTextStyle}>
           {this.props.children}
         </Text>
-        {this.props.iconRight  ? (this.props.icon ? <Icon name={this.props.icon} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null) : null}
+        {this.props.iconRight && Icon ? <Icon size={24} name={this.props.iconRight} style={this.props.iconStyle ? this.props.iconStyle : styles.iconStyle}/> : null}
       </View>
     );
   }
@@ -74,9 +105,9 @@ export default class Button extends Component{
     progressColor : React.PropTypes.string,
     round: React.PropTypes.bool,
     raised : React.PropTypes.bool,
-    iconRight : React.PropTypes.bool,
-    iconLeft : React.PropTypes.bool,
-    icon : React.PropTypes.string,
+    iconRight : React.PropTypes.string,
+    iconLeft : React.PropTypes.string,
+    iconType : React.PropTypes.string,
     radius : React.PropTypes.number,
     disabled : React.PropTypes.bool,
     disabledStyle : React.PropTypes.object,
@@ -91,7 +122,7 @@ export default class Button extends Component{
 const styles = StyleSheet.create({
   button : {
     minWidth : 100,
-    height: 46,
+    height: 48,
     backgroundColor  : '#337ab7',
     justifyContent: 'center',
     margin :8
@@ -115,7 +146,8 @@ const styles = StyleSheet.create({
   iconStyle:{
     alignSelf:'center',
     color:'#fff',
-    size : 24
+    marginLeft : 8,
+    marginRight : 8
   },
   raised: {
     ...Platform.select({
