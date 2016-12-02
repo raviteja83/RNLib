@@ -9,22 +9,16 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback
 } from 'react-native';
-const isEqual = require('lodash.isequal');
 
-class Button extends Component{
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+export default class Button extends Component{
   constructor(props){
     super(props);
   }
 
-  shouldComponentUpdate: function (nextProps, nextState) {
-    if (!isEqual(nextProps, this.props)) {
-      return true;
-    }
-    return false;
-  }
-
-  __renderChildren(){
-    if(this.props.progress){
+  renderChildren(){
+    if(this.props.isLoading){
       return (
         <View style={styles.progress}>
           <ActivityIndicator animating={true} color={this.props.progressColor ? this.props.progressColor : '#fff'}/>
@@ -32,15 +26,22 @@ class Button extends Component{
       );
     }
     return (
-      <Text style={this.props.textStyle ? this.props.textStyle : styles.defaultTextStyle}>{this.props.children}</Text>
+      <View style={{justifyContent:'center',flexDirection:row}}>
+        {this.props.iconLeft  ? <Icon size={24} name="rocket"/> : null}
+        <Text style={this.props.textStyle ? this.props.textStyle : styles.defaultTextStyle}>
+          {this.props.children}
+        </Text>
+        {this.props.iconRight  ? <Icon size={24} name="rocket"/> : null}
+      </View>
     );
   }
 
   render(){
     const buttonStyle =  this.props.style ? this.props.style : styles.button;
-    const round = this.props.radius ? { borderRadius : this.props.radius} : styles.round;
+    const round = this.props.round ? (this.props.radius  ? { borderRadius : this.props.radius} : styles.round ) : {};
     const disabled = this.props.disabled ? (this.props.disabledStyle ? this.props.disabledStyle : styles.disabled ) : {};
-    let touchableProps = this.props.disabled ? {} : {
+    const raised = this.props.raised ? styles.raised : {};
+    let touchableProps = this.props.disabled || this.props.isLoading ? {} : {
       onPress: this.props.onPress,
       onPressIn: this.props.onPressIn,
       onPressOut: this.props.onPressOut,
@@ -52,35 +53,38 @@ class Button extends Component{
       });
       return(
         <TouchableNativeFeedback {...touchableProps}
-          style={[buttonStyle,round,disabled]}>
-          {this.__renderChildren}
+          style={[buttonStyle,round,disabled,raised]}>
+          {this.renderChildren()}
         </TouchableNativeFeedback>
       );
-    }else{
-      <TouchableOpacity {...touchableProps}
-        style={[buttonStyle,round,disabled]}>
-        {this.__renderChildren}
-      </TouchableOpacity>
     }
+    return (
+      <TouchableOpacity {...touchableProps}
+        style={[buttonStyle,round,disabled,raised]}>
+        {this.renderChildren()}
+      </TouchableOpacity>
+    );
   }
 
-  static propTypes ={
+  static propTypes = {
     style : React.PropTypes.object,
     textStyle : React.PropTypes.object,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.array
-    ]),
-    progress : React.PropTypes.bool,
+    iconStyle:  React.PropTypes.object,
+    isLoading : React.PropTypes.bool,
     progressColor : React.PropTypes.string,
+    round: React.PropTypes.bool,
+    raised : React.PropTypes.bool,
+    iconRight : React.PropTypes.bool,
+    iconLeft : React.PropTypes.bool,
+    icon : React.PropTypes.string,
     radius : React.PropTypes.number,
     disabled : React.PropTypes.bool,
     disabledStyle : React.PropTypes.object,
     onPress : React.PropTypes.func.isRequired,
-    onLongPress: PropTypes.func,
-    onPressIn: PropTypes.func,
-    onPressOut: PropTypes.func,
-    background: (TouchableNativeFeedback.propTypes) ? TouchableNativeFeedback.propTypes.background : PropTypes.any,
+    onLongPress: React.PropTypes.func,
+    onPressIn: React.PropTypes.func,
+    onPressOut: React.PropTypes.func,
+    background: (TouchableNativeFeedback.propTypes) ? TouchableNativeFeedback.propTypes.background : React.PropTypes.any,
   }
 }
 
@@ -89,7 +93,8 @@ const styles = StyleSheet.create({
     minWidth : 100,
     height: 46,
     backgroundColor  : '#337ab7',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin :8
   },
   round : {
     borderRadius : 8
@@ -106,7 +111,19 @@ const styles = StyleSheet.create({
     fontSize : 16,
     textAlign : 'center',
     padding : 8
+  },
+  raised: {
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0,0,0, .4)',
+        shadowOffset: {height: 1, width: 1},
+        shadowOpacity: 1,
+        shadowRadius: 1
+      },
+      android: {
+        elevation: 2
+      }
+    })
   }
-});
 
-export default Button;
+});
