@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "react-native-fcm": "^2.4.2",
     "react-native-vector-icons": "^3.0.0"
   },
   "devDependencies": {

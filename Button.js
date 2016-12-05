@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component,PropTypes} from 'react';
 import {
   View,
   Text,
@@ -98,24 +98,24 @@ export default class Button extends Component{
   }
 
   static propTypes = {
-    style : React.PropTypes.object,
-    textStyle : React.PropTypes.object,
-    iconStyle:  React.PropTypes.object,
-    isLoading : React.PropTypes.bool,
-    progressColor : React.PropTypes.string,
-    round: React.PropTypes.bool,
-    raised : React.PropTypes.bool,
-    iconRight : React.PropTypes.string,
-    iconLeft : React.PropTypes.string,
-    iconType : React.PropTypes.string,
-    radius : React.PropTypes.number,
-    disabled : React.PropTypes.bool,
-    disabledStyle : React.PropTypes.object,
-    onPress : React.PropTypes.func.isRequired,
-    onLongPress: React.PropTypes.func,
-    onPressIn: React.PropTypes.func,
-    onPressOut: React.PropTypes.func,
-    background: (TouchableNativeFeedback.propTypes) ? TouchableNativeFeedback.propTypes.background : React.PropTypes.any,
+    style : PropTypes.object,
+    textStyle : PropTypes.object,
+    iconStyle:  PropTypes.object,
+    isLoading : PropTypes.bool,
+    progressColor : PropTypes.string,
+    round: PropTypes.bool,
+    raised : PropTypes.bool,
+    iconRight : PropTypes.string,
+    iconLeft : PropTypes.string,
+    iconType : PropTypes.string,
+    radius : PropTypes.number,
+    disabled : PropTypes.bool,
+    disabledStyle : PropTypes.object,
+    onPress : PropTypes.func.isRequired,
+    onLongPress: PropTypes.func,
+    onPressIn: PropTypes.func,
+    onPressOut: PropTypes.func,
+    background: (TouchableNativeFeedback.propTypes) ? TouchableNativeFeedback.propTypes.background : PropTypes.any,
   }
 }
 
