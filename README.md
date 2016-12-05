@@ -1,14 +1,15 @@
 # RNLib
 
-# Installation : 
+# Installation :
 
  Add `"RNLib":"git+https://github.com/raviteja83/RNLib.git"`  as dependency to your `package.json`
- 
+
 # Usage :
- `import Button from 'RNLib'`
- 
+**For using Button**
+ `import {Button} from 'RNLib'`
+
  `<Button raised round>Text Here!</Button>`
-# Props
+  **Button - Props**
    <Table>
    <tr>
    <td><b>prop name</b></td>
@@ -27,7 +28,7 @@
     margin :8
     }</td>
      <td>button style properties</td>
-    </tr> 
+    </tr>
     <tr>
     <td>textStyle</td>
     <td>object</td>
@@ -141,3 +142,14 @@
     <td>to set the background of the button</td>
     </tr>
     </Table>
+  **For using Notification**
+    in your index.android.js and index.ios.js
+   `import {Notification}  from 'RNLib';
+
+    <Container>
+      <Content>
+      </Content>
+      <Notification fcm_token={pass a function which receives token as parameter}
+        fcm_action={pass a function which receives and handles notification click}/>
+    </Container>`
+ 
