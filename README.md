@@ -7,7 +7,7 @@
 # Usage :
 **For using Button**
 
- `import {Button} from 'RNLib'
+ `import {Button} from 'RNLib'`
 
  `<Button raised round>Text Here!</Button>`
  
